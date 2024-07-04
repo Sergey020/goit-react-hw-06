@@ -1,13 +1,29 @@
 import { VscAccount } from "react-icons/vsc";
 import { VscCallOutgoing } from "react-icons/vsc";
-const Contact = ({name, phone,deleteContact}) => {
-  return (
-    <>
-      <p><VscAccount />{name}</p>
-      <p><VscCallOutgoing />{phone}</p>
-      <button onClick = {deleteContact}>Delete</button>
-      </>
-  )
-}
+import { useDispatch } from "react-redux";
+import { deleteContact } from "../../redux/contactsSlice";
 
-export default Contact
+
+const Contact = ({ name, number, id }) => {
+  const dispatch = useDispatch();
+
+  const handleClickDelete = () => dispatch(deleteContact(id));
+
+  return (
+    <div>
+      <div>
+        <p>
+          <VscAccount />
+          {name}
+        </p>
+        <p>
+          <VscCallOutgoing />
+          {number}
+        </p>
+      </div>
+      <button onClick={handleClickDelete}>Delete</button>
+    </div>
+  );
+};
+
+export default Contact;
